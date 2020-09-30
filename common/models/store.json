@@ -1,0 +1,21 @@
+{
+  "name": "Store",
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "marketplaceFee": {
+      "type": "number",
+      "default": 0.1
+    },
+    "paymentFee": {
+      "type": "number",
+      "default": 0.01
+    },
+    "status": {
+      "type": "string",
+      "default": "active"
+    }
+  }
+}
