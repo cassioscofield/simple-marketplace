@@ -5,7 +5,8 @@
     "ACL": 1,
     "RoleMapping": 1,
     "Role": 1,
-    "Store": 3
+    "Store": 2,
+    "Product": 3
   },
   "models": {
     "User": {},
@@ -14,8 +15,11 @@
     "RoleMapping": {},
     "Role": {},
     "Store": {
-      "1": "{\"name\":\"teste\",\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"status\":\"inactive\",\"id\":1}",
-      "2": "{\"name\":\"teste2\",\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"status\":\"active\",\"id\":2}"
+      "1": "{\"name\":\"store one\",\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"status\":\"active\",\"storeId\":1}"
+    },
+    "Product": {
+      "1": "{\"name\":\"cup\",\"price\":1,\"status\":\"active\",\"storeId\":1,\"productId\":1}",
+      "2": "{\"name\":\"mug\",\"price\":2,\"status\":\"active\",\"storeId\":1,\"productId\":2}"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "Store",
+  "name": "Product",
   "base": "PersistedModel",
   "idInjection": true,
   "forceId": true,
@@ -7,7 +7,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "storeId": {
+    "productId": {
       "type": "string",
       "id": true,
       "index": true,
@@ -18,24 +18,13 @@
       "type": "string",
       "required": true
     },
-    "marketplaceFee": {
+    "price": {
       "type": "number",
-      "default": 0.1
-    },
-    "paymentFee": {
-      "type": "number",
-      "default": 0.01
+      "required": true
     },
     "status": {
       "type": "string",
       "default": "active"
-    }
-  },
-  "relations": {
-    "products": {
-      "type": "hasMany",
-      "model": "Product",
-      "foreignKey": ""
     }
   }
 }
