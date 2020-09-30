@@ -13,7 +13,6 @@ module.exports = function(Product) {
   Product.disableRemoteMethodByName('findOne');
   Product.disableRemoteMethodByName('replaceOrCreate');
   Product.disableRemoteMethodByName('updateAll');
-  Product.disableRemoteMethodByName('replaceById');
   Product.disableRemoteMethodByName('replaceOrCreate');
   Product.disableRemoteMethodByName('upsertWithWhere');
 

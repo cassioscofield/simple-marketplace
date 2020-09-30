@@ -6,7 +6,7 @@
     "RoleMapping": 1,
     "Role": 1,
     "Store": 2,
-    "Product": 3,
+    "Product": 4,
     "Order": 2
   },
   "models": {
@@ -20,7 +20,8 @@
     },
     "Product": {
       "1": "{\"name\":\"cup\",\"price\":1,\"status\":\"active\",\"storeId\":1,\"productId\":1}",
-      "2": "{\"name\":\"mug\",\"price\":2,\"status\":\"active\",\"storeId\":1,\"productId\":2}"
+      "2": "{\"name\":\"mug\",\"price\":2,\"status\":\"active\",\"storeId\":1,\"productId\":2}",
+      "3": "{\"name\":\"product-one\",\"price\":1,\"status\":\"active\",\"storeId\":1,\"productId\":3}"
     },
     "Order": {
       "1": "{\"orderDate\":\"2020-09-30T03:44:41.965Z\",\"totalPrice\":1,\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"storeRevenue\":0.89,\"productId\":1,\"storeId\":1,\"orderId\":1}"
