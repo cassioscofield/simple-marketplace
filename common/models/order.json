@@ -1,0 +1,50 @@
+{
+  "name": "Order",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "forceId": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "id": true,
+      "index": true,
+      "isArray": false,
+      "generated": true
+    },
+    "orderDate": {
+      "type": "date",
+      "default": "$now"
+    },
+    "totalPrice": {
+      "type": "number",
+      "required": false
+    },
+    "marketplaceFee": {
+      "type": "number",
+      "required": false
+    },
+    "paymentFee": {
+      "type": "number",
+      "required": false
+    },
+    "storeRevenue": {
+      "type": "number",
+      "required": false
+    }
+  },
+  "relations": {
+    "product": {
+      "type": "belongsTo",
+      "model": "Product",
+      "foreignKey": "productId"
+    },
+    "store": {
+      "type": "belongsTo",
+      "model": "Store",
+      "foreignKey": "storeId"
+    }
+  }
+}

@@ -20,7 +20,7 @@
     },
     "marketplaceFee": {
       "type": "number",
-      "default": 0.1
+      "default": 0.09
     },
     "paymentFee": {
       "type": "number",
@@ -35,6 +35,11 @@
     "products": {
       "type": "hasMany",
       "model": "Product",
+      "foreignKey": ""
+    },
+    "orders": {
+      "type": "hasMany",
+      "model": "Order",
       "foreignKey": ""
     }
   }
