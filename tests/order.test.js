@@ -5,7 +5,7 @@ const expect = chai.expect;
 let app = require('./../server/server.js');
 
 describe('Order', function () {
-    describe('GET /orders', function () {
+    describe('GET /api/orders', function () {
         it('responds with an empty json array', function (done) {
             chai.request(app).get('/api/orders')
                 .end((err, res) => {

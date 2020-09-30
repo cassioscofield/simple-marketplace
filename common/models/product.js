@@ -24,8 +24,8 @@ module.exports = function(Product) {
   
   // Implementing soft-delete
   Product.on('attached', function () {
-    Product.deleteById = function (id, x, callback) {
-      Product.updateAll({ id: id }, {
+    Product.deleteById = function (id, undefined, callback) {
+      Product.updateAll({ productId: id }, {
         status: 'inactive',
       }, callback);
     };

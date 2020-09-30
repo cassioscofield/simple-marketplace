@@ -27,8 +27,8 @@ module.exports = function(Store) {
   
   // Implementing soft-delete
   Store.on('attached', function () {
-    Store.deleteById = function (id, x, callback) {
-      Store.updateAll({ id: id }, {
+    Store.deleteById = function (id, undefined, callback) {
+      Store.updateAll({ storeId: id }, {
         status: 'inactive',
       }, callback);
     };
