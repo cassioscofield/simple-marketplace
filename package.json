@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
-    "node": ">=6"
+    "node": ">=10"
   },
   "scripts": {
     "lint": "eslint .",
-    "production": "NODE_ENV=production node .",
-    "start": "NODE_ENV=development node .",
-    "test": "NODE_ENV=test mocha tests/*.test.js"
+    "start": "NODE_ENV=production node .",
+    "dev": "NODE_ENV=development node .",
+    "test": "NODE_ENV=test mocha tests/*.test.js",
+    "create-tables": "NODE_ENV=production ./server/create-tables.js"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -21,6 +22,7 @@
     "loopback": "^3.27.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^6.5.1",
+    "loopback-connector-mysql": "^6.0.0",
     "request-promise": "^4.2.6",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^3.0.0"

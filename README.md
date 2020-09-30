@@ -1,19 +1,29 @@
 ### simple-marketplace
 
+#### Prerequisites
+
+- Node.JS v10+ (tested on v10.14.1)
+- MySQL v5+ (for NODE_ENV=production only)
+
 #### Commands
 
 - Instalation
 ```
 npm install
 ```
-- Startup
+- Start develpment environment (file: database.json)
 ```
+npm run dev
+```
+- Start production environment (MySQL)
+```
+npm run create-tables
 npm start
 ```
 - Test and Lint
 ```
 npm test
-npm lint
+npm run lint
 ```
 
 ---
@@ -63,3 +73,17 @@ npm lint
 - **Logical deleting**
 
     - Objects in the store and product tables cannot be deleted from the database, instead, the DELETE APIs implement a logical/soft delete by using the **status** field: **"active"** for non-deleted rows and **"inactive"** for discarded content, removed from the storefront, this ensured database consistency and enable auditing for all purchases even after there stores/product have been disabled from sale.
+
+
+---
+
+#### Deployment
+
+- API is currently deployed in Heroku and can be accessed via the URL https://simple-marketplace.herokuapp.com/
+
+- For MySQL database, also set the following environment variables with your own configuration:
+    - DB_DATABASE=markeplace
+    - DB_HOST=locahost
+    - DB_PORT=3306
+    - DB_USERNAME=myuser
+    - DB_PASSWORD=mypassword
