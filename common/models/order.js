@@ -23,7 +23,7 @@ module.exports = function(Order) {
     let product = await app.models.Product.findById(ctx.instance.productId);
     let store = await app.models.Store.findById(product.storeId);
 
-    ctx.instance.totalPrice = product.price;
+    ctx.instance.amountPaid = product.price;
     ctx.instance.paymentFee = (store.paymentFee * product.price).toFixed(2);
     ctx.instance.marketplaceFee = (store.marketplaceFee * product.price).toFixed(2);
     ctx.instance.storeRevenue = (product.price - ctx.instance.paymentFee - ctx.instance.marketplaceFee).toFixed(2);

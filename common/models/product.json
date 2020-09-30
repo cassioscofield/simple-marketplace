@@ -20,11 +20,34 @@
     },
     "price": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "required": true
     },
     "status": {
       "type": "string",
       "default": "active"
+    }
+  },
+  "relations": {
+    "store": {
+      "type": "belongsTo",
+      "model": "Store",
+      "foreignKey": "storeId",
+      "primaryKey": "",
+      "options": {
+        "validate": true,
+        "forceId": false
+      }
+    }
+  },
+  "foreignKeys": {
+    "storeId": {
+      "name": "storeIdInProduct",
+      "foreignKey": "storeId",
+      "entityKey": "storeId",
+      "entity": "Store"
     }
   }
 }

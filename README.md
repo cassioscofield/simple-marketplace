@@ -18,6 +18,7 @@ npm run dev
 - Start production environment (MySQL)
 ```
 npm run create-tables
+npm run create-foreign-keys
 npm start
 ```
 - Test and Lint

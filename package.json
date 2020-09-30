@@ -10,7 +10,8 @@
     "start": "NODE_ENV=production node .",
     "dev": "NODE_ENV=development node .",
     "test": "NODE_ENV=test mocha tests/*.test.js",
-    "create-tables": "NODE_ENV=production ./server/create-tables.js"
+    "create-tables": "NODE_ENV=production ./server/create-tables.js",
+    "create-foreign-keys": "NODE_ENV=production ./server/create-foreign-keys.js"
   },
   "dependencies": {
     "chai": "^4.2.0",

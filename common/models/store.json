@@ -20,10 +20,16 @@
     },
     "marketplaceFee": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "default": 0.09
     },
     "paymentFee": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "default": 0.01
     },
     "status": {

@@ -21,7 +21,8 @@ module.exports = function(Product) {
     in: ['active', 'inactive'],
     message: 'is not allowed'
   });
-  
+  Product.validatesPresenceOf('storeId');
+
   // Implementing soft-delete
   Product.on('attached', function () {
     Product.deleteById = function (id, undefined, callback) {

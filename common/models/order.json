@@ -18,20 +18,32 @@
       "type": "date",
       "default": "$now"
     },
-    "totalPrice": {
+    "ammuntPaid": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "required": false
     },
     "marketplaceFee": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "required": false
     },
     "paymentFee": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "required": false
     },
     "storeRevenue": {
       "type": "number",
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2,
       "required": false
     }
   },
@@ -45,6 +57,20 @@
       "type": "belongsTo",
       "model": "Store",
       "foreignKey": "storeId"
+    }
+  },
+  "foreignKeys": {
+    "productId": {
+      "name": "productIdInOrder",
+      "foreignKey": "productId",
+      "entityKey": "productId",
+      "entity": "Product"
+    },
+    "storeId": {
+      "name": "storeIdInOrder",
+      "foreignKey": "storeId",
+      "entityKey": "storeId",
+      "entity": "Store"
     }
   }
 }
