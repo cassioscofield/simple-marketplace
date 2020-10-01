@@ -21,6 +21,27 @@ module.exports = function(Order) {
   // Model validations
   Order.validatesPresenceOf('productId');
 
+  // Implementing soft-delete
+  Order.on('attached', function () {
+    Order.deleteById = function (id, undefined, callback) {
+      Order.updateAll({ orderId: id }, {
+        status: 'cancelled',
+      }, callback);
+    };
+  });
+
+  // Filtering only not cancelled orders by default
+  Order.beforeRemote('find', function(ctx, modelInstance, next) {
+    if (!ctx.args.filter) {
+      ctx.args.filter = {
+        where: {
+          status: { neq: 'active'}
+        }
+      };
+    }
+    next();
+  });
+
   async function calculateFeesAndRevenue(ctx, next) {
 
     let product = await app.models.Product.findById(ctx.instance.productId);
@@ -43,6 +64,14 @@ module.exports = function(Order) {
   }
 
   Order.observe('before save', function (ctx, next) {
+
+    // Before Update
+    if (!ctx.instance) {
+      next();
+      return;
+    }
+
+    // Before Create
     if (!ctx.instance.productId) {
       var error = new Error('productId can`t be blank');
       error.status = 400;

@@ -45,6 +45,10 @@
       "precision": 10,
       "scale": 2,
       "required": false
+    },
+    "status": {
+      "type": "string",
+      "default": "active"
     }
   },
   "relations": {

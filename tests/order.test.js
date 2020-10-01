@@ -150,6 +150,24 @@ describe('Order', function () {
                     });
             });
         });
+        describe('DELETE /api/orders/{id}', function () {
+            it('should be able to delete an order', function (done) {
+                chai.request(app).delete('/api/orders/' + orderId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.count).to.equal(1);
+                        done();
+                    });
+            });
+            it('should find order with cancelled status after its deletion', function (done) {
+                chai.request(app).get('/api/orders/' + orderId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.status).to.equal('cancelled');
+                        done();
+                    });
+            });
+        });
     });
 
 });
