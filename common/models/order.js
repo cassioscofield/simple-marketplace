@@ -18,9 +18,18 @@ module.exports = function(Order) {
   Order.disableRemoteMethodByName('replaceOrCreate');
   Order.disableRemoteMethodByName('upsertWithWhere');
 
+  // Model validations
+  Order.validatesPresenceOf('productId');
+
   async function calculateFeesAndRevenue(ctx, next) {
 
     let product = await app.models.Product.findById(ctx.instance.productId);
+    if (!product) {
+      var error = new Error('product not found in database');
+      error.status = 422;
+      next(error);
+      return;
+    }
     let store = await app.models.Store.findById(product.storeId);
 
     ctx.instance.amountPaid = product.price;
@@ -34,7 +43,17 @@ module.exports = function(Order) {
   }
 
   Order.observe('before save', function (ctx, next) {
-    calculateFeesAndRevenue(ctx, next);
+    if (!ctx.instance.productId) {
+      var error = new Error('productId can`t be blank');
+      error.status = 400;
+      next(error);
+      return;
+    }
+    try {
+      calculateFeesAndRevenue(ctx, next);
+    } catch (e) {
+      next(e);
+    }
   });
 
 };
