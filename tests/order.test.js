@@ -19,7 +19,7 @@ describe('Order', function () {
         });
     });
 
-    describe('GET /api/orders', function () {
+    describe('GET /api/orders - empty', function () {
         it('responds with an empty json array', function (done) {
             chai.request(app).get('/api/orders')
                 .end((err, res) => {
@@ -92,6 +92,24 @@ describe('Order', function () {
                     expect(res.body.storeRevenue).to.equal(45);
                     done(err);
                 });
+        });
+        it('GET /api/orders - populated', function () {
+            it('responds with a json array with the created order', function (done) {
+                chai.request(app).get('/api/orders')
+                    .end((err, res) => {
+                        expect(res.body).to.be.an('array');
+                        expect(res.status).to.equal(200);
+                        expect(res.body.length).to.equal(1);
+                        expect(res.body[0].orderId).to.equal(orderId);
+                        expect(res.body[0].storeId).to.equal(storeId);
+                        expect(res.body[0].productId).to.equal(productId);
+                        expect(res.body[0].amountPaid).to.equal(50);
+                        expect(res.body[0].orderDate).to.equal(orderDate);
+                        expect(res.body[0].marketplaceFee).to.equal(4.5);
+                        expect(res.body[0].paymentFee).to.equal(0.5);
+                        done(err);
+                    });
+            });
         });
         describe('GET /api/orders/{id}', function () {
             it('should find order after its creation', function (done) {
