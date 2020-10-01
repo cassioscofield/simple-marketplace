@@ -13,7 +13,7 @@ module.exports = function(Store) {
   Store.disableRemoteMethodByName('findOne');
   Store.disableRemoteMethodByName('replaceOrCreate');
   Store.disableRemoteMethodByName('updateAll');
-  Store.disableRemoteMethodByName('replaceOrCreate');
+  Store.disableRemoteMethodByName('count');
   Store.disableRemoteMethodByName('upsertWithWhere');
 
   // Model validations

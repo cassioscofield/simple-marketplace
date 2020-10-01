@@ -15,7 +15,7 @@ module.exports = function(Order) {
   Order.disableRemoteMethodByName('replaceOrCreate');
   Order.disableRemoteMethodByName('updateAll');
   Order.disableRemoteMethodByName('replaceById');
-  Order.disableRemoteMethodByName('replaceOrCreate');
+  Order.disableRemoteMethodByName('count');
   Order.disableRemoteMethodByName('upsertWithWhere');
 
   // Model validations
