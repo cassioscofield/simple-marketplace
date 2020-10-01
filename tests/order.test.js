@@ -3,6 +3,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const expect = chai.expect;
 let app = require('./../server/server.js');
+const product = require('../common/models/product.js');
 
 describe('Order', function () {
     
@@ -55,7 +56,7 @@ describe('Order', function () {
         });
     });
     describe('POST /api/orders success', function () {
-        let storeId, productId;
+        let storeId, productId, orderId, orderDate;
         before(function (done) {
             app.models.Store.create({
                 name: 'store-one'
@@ -79,16 +80,76 @@ describe('Order', function () {
                 })
                 .end((err, res) => {
                     expect(res.status).to.equal(200);
-                    expect(res.body.orderId).to.equal(1);
-                    expect(res.body.productId).to.equal(1);
-                    expect(res.body.storeId).to.equal(1);
+                    expect(res.body.productId).to.equal(productId);
+                    expect(res.body.storeId).to.equal(storeId);
                     expect(res.body.amountPaid).to.equal(50);
                     expect(res.body.marketplaceFee).to.equal(4.5);
                     expect(res.body.paymentFee).to.equal(0.5);
+                    expect(res.body).to.contain.key('orderId');
+                    orderId = res.body.orderId;
                     expect(res.body).to.contain.key('orderDate');
+                    orderDate = res.body.orderDate;
                     expect(res.body.storeRevenue).to.equal(45);
                     done(err);
                 });
         });
+        describe('GET /api/orders/{id}', function () {
+            it('should find order after its creation', function (done) {
+                chai.request(app).get('/api/orders/' + productId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.productId).to.equal(productId);
+                        expect(res.body.storeId).to.equal(storeId);
+                        expect(res.body.amountPaid).to.equal(50);
+                        expect(res.body.marketplaceFee).to.equal(4.5);
+                        expect(res.body.paymentFee).to.equal(0.5);
+                        expect(res.body).to.contain.key('orderId');
+                        expect(res.body).to.contain.key('orderDate');
+                        expect(res.body.storeRevenue).to.equal(45);
+                        done(err);
+                    });
+            });
+            it('should find order after deletion of its product in the store', function (done) {
+                chai.request(app).delete('/api/products/' + productId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.count).to.equal(1);
+                        chai.request(app).get('/api/orders/' + productId)
+                            .end((err, res) => {
+                                expect(res.status).to.equal(200);
+                                expect(res.body.productId).to.equal(productId);
+                                expect(res.body.storeId).to.equal(storeId);
+                                expect(res.body.amountPaid).to.equal(50);
+                                expect(res.body.marketplaceFee).to.equal(4.5);
+                                expect(res.body.paymentFee).to.equal(0.5);
+                                expect(res.body).to.contain.key('orderId');
+                                expect(res.body).to.contain.key('orderDate');
+                                expect(res.body.storeRevenue).to.equal(45);
+                                done(err);
+                            });
+                    });
+            });
+            it('should find order after deletion of the store of the product', function (done) {
+                chai.request(app).delete('/api/stores/' + storeId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.count).to.equal(1);
+                        chai.request(app).get('/api/orders/' + orderId)
+                            .end((err, res) => {
+                                expect(res.status).to.equal(200);
+                                expect(res.body.orderId).to.equal(orderId);
+                                expect(res.body.productId).to.equal(productId);
+                                expect(res.body.storeId).to.equal(storeId);
+                                expect(res.body.orderDate).to.equal(orderDate);
+                                expect(res.body.amountPaid).to.equal(50);
+                                expect(res.body.marketplaceFee).to.equal(4.5);
+                                expect(res.body.paymentFee).to.equal(0.5);
+                                expect(res.body.storeRevenue).to.equal(45);
+                                done(err);
+                            });
+                    });
+            });
+        });
     });
+
 });
