@@ -6,7 +6,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint common/models/*.js",
     "start": "NODE_ENV=production node .",
     "dev": "NODE_ENV=development node .",
     "test": "NODE_ENV=test mocha tests/*.test.js",

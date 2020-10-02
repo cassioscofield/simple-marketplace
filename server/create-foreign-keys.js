@@ -13,6 +13,6 @@ var lbTables = [
 ];
 ds.autoupdate(lbTables, function(err) {
   if (err) throw err;
-  console.log('Loopback tables [' - lbTables - '] autoupdated in ', ds.adapter.name);
+  console.log('Loopback tables autoupdated in ', ds.adapter.name);
   ds.disconnect();
 });

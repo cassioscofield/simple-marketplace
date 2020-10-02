@@ -5,7 +5,6 @@
 var app = require('../../server/server');
 
 module.exports = function(Order) {
-
   // Disabling unused remote methods not used
   Order.disableRemoteMethodByName('upsert');
   Order.disableRemoteMethodByName('prototype.updateAttributes');
@@ -22,13 +21,13 @@ module.exports = function(Order) {
   Order.validatesPresenceOf('productId');
   Order.validatesInclusionOf('status', {
     in: ['active', 'cancelled'],
-    message: 'is not allowed'
+    message: 'is not allowed',
   });
 
   // Implementing soft-delete
-  Order.on('attached', function () {
-    Order.deleteById = function (id, undefined, callback) {
-      Order.updateAll({ orderId: id }, {
+  Order.on('attached', function() {
+    Order.deleteById = function(id, undefined, callback) {
+      Order.updateAll({orderId: id}, {
         status: 'cancelled',
       }, callback);
     };
@@ -39,17 +38,20 @@ module.exports = function(Order) {
     if (!ctx.args.filter) {
       ctx.args.filter = {
         where: {
-          status: { neq: 'cancelled'}
-        }
+          status: {neq: 'cancelled'},
+        },
       };
     }
     next();
   });
 
-  function calculateFeesAndRevenue (instance, product, store) {
-    instance.paymentFee = (store.paymentFee * product.price).toFixed(2);
-    instance.marketplaceFee = (store.marketplaceFee * product.price).toFixed(2);
-    instance.storeRevenue = (product.price - instance.paymentFee - instance.marketplaceFee).toFixed(2);
+  function calculateFeesAndRevenue(instance, product, store) {
+    const paymentFee = (store.paymentFee * product.price).toFixed(2);
+    const marketplaceFee = (store.marketplaceFee * product.price).toFixed(2);
+    const storeRevenue = (product.price - paymentFee - marketplaceFee).toFixed(2);
+    instance.paymentFee = paymentFee;
+    instance.marketplaceFee = marketplaceFee;
+    instance.storeRevenue = storeRevenue;
   }
 
   function addProductInformationToOrder(instance, product, store) {
@@ -62,7 +64,7 @@ module.exports = function(Order) {
   }
 
   async function addProductStoreAndFeeInformationToOrder(ctx, next) {
-
+    // Retrieves product from database
     let product = await app.models.Product.findById(ctx.instance.productId);
     if (!product) {
       var error = new Error('product not found in database');
@@ -70,8 +72,9 @@ module.exports = function(Order) {
       next(error);
       return;
     }
+    // Retrieves store from database
     let store = await app.models.Store.findById(product.storeId);
-
+    // Complement order data with product and store information
     try {
       addProductInformationToOrder(ctx.instance, product, store);
       calculateFeesAndRevenue(ctx.instance, product, store);
@@ -80,12 +83,9 @@ module.exports = function(Order) {
       error.status = 400;
       next(error);
     }
-
-    
   }
 
-  Order.observe('before save', function (ctx, next) {
-
+  Order.observe('before save', function(ctx, next) {
     // Before Update
     if (!ctx.instance) {
       next();
@@ -105,5 +105,4 @@ module.exports = function(Order) {
       next(e);
     }
   });
-
 };

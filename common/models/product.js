@@ -4,7 +4,6 @@
 // License text available at https://opensource.org/licenses/MIT
 
 module.exports = function(Product) {
-
   // Disabling unused remote methods not used
   Product.disableRemoteMethodByName('upsert');
   Product.disableRemoteMethodByName('prototype.updateAttributes');
@@ -19,14 +18,14 @@ module.exports = function(Product) {
   // Model validations
   Product.validatesInclusionOf('status', {
     in: ['active', 'inactive'],
-    message: 'is not allowed'
+    message: 'is not allowed',
   });
   Product.validatesPresenceOf('storeId');
 
   // Implementing soft-delete
-  Product.on('attached', function () {
-    Product.deleteById = function (id, undefined, callback) {
-      Product.updateAll({ productId: id }, {
+  Product.on('attached', function() {
+    Product.deleteById = function(id, undefined, callback) {
+      Product.updateAll({productId: id}, {
         status: 'inactive',
       }, callback);
     };
@@ -37,11 +36,10 @@ module.exports = function(Product) {
     if (!ctx.args.filter) {
       ctx.args.filter = {
         where: {
-          status: 'active'
-        }
+          status: 'active',
+        },
       };
     }
     next();
   });
-
 };
