@@ -5,9 +5,9 @@
     "ACL": 1,
     "RoleMapping": 1,
     "Role": 1,
-    "Store": 2,
+    "Store": 4,
     "Product": 4,
-    "Order": 2
+    "Order": 6
   },
   "models": {
     "User": {},
@@ -16,15 +16,21 @@
     "RoleMapping": {},
     "Role": {},
     "Store": {
-      "1": "{\"name\":\"store one\",\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"status\":\"active\",\"storeId\":1}"
+      "1": "{\"name\":\"store one\",\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"status\":\"inactive\",\"storeId\":1}",
+      "2": "{\"name\":\"store-two\",\"marketplaceFee\":0.09,\"paymentFee\":0.01,\"status\":\"active\",\"storeId\":2}",
+      "3": "{\"name\":\"store-three\",\"marketplaceFee\":0.08,\"paymentFee\":0.008,\"status\":\"active\",\"storeId\":3}"
     },
     "Product": {
-      "1": "{\"name\":\"cup\",\"price\":1,\"status\":\"active\",\"storeId\":1,\"productId\":1}",
-      "2": "{\"name\":\"mug\",\"price\":2,\"status\":\"active\",\"storeId\":1,\"productId\":2}",
-      "3": "{\"name\":\"product-one\",\"price\":1,\"status\":\"active\",\"storeId\":1,\"productId\":3}"
+      "1": "{\"productId\":1,\"name\":\"product-one-changed\",\"price\":45,\"status\":\"active\",\"storeId\":1}",
+      "2": "{\"name\":\"product-two\",\"price\":100,\"status\":\"inactive\",\"storeId\":2,\"productId\":2}",
+      "3": "{\"name\":\"product-three\",\"price\":300,\"status\":\"active\",\"storeId\":1,\"productId\":3}"
     },
     "Order": {
-      "1": "{\"orderDate\":\"2020-09-30T03:44:41.965Z\",\"totalPrice\":1,\"marketplaceFee\":0.1,\"paymentFee\":0.01,\"storeRevenue\":0.89,\"productId\":1,\"storeId\":1,\"orderId\":1}"
+      "1": "{\"productName\":\"product-two\",\"orderDate\":\"2020-10-02T02:31:05.579Z\",\"amountPaid\":100,\"marketplaceFee\":9,\"paymentFee\":1,\"storeRevenue\":90,\"status\":\"active\",\"productId\":2,\"storeId\":2,\"orderId\":1}",
+      "2": "{\"productName\":\"product-one\",\"orderDate\":\"2020-10-02T02:31:21.939Z\",\"amountPaid\":50,\"marketplaceFee\":5,\"paymentFee\":0.5,\"storeRevenue\":44.5,\"status\":\"cancelled\",\"productId\":1,\"storeId\":1,\"orderId\":2}",
+      "3": "{\"productName\":\"product-one\",\"orderDate\":\"2020-10-02T02:31:22.945Z\",\"amountPaid\":50,\"marketplaceFee\":5,\"paymentFee\":0.5,\"storeRevenue\":44.5,\"status\":\"active\",\"productId\":1,\"storeId\":1,\"orderId\":3}",
+      "4": "{\"productName\":\"product-two\",\"orderDate\":\"2020-10-02T02:31:25.396Z\",\"amountPaid\":100,\"marketplaceFee\":9,\"paymentFee\":1,\"storeRevenue\":90,\"status\":\"active\",\"productId\":2,\"storeId\":2,\"orderId\":4}",
+      "5": "{\"productName\":\"product-one-changed\",\"orderDate\":\"2020-10-02T02:33:28.795Z\",\"amountPaid\":45,\"marketplaceFee\":4.5,\"paymentFee\":0.45,\"storeRevenue\":40.05,\"status\":\"active\",\"productId\":1,\"storeId\":1,\"orderId\":5}"
     }
   }
 }
