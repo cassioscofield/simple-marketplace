@@ -27,7 +27,8 @@
     },
     "status": {
       "type": "string",
-      "default": "active"
+      "default": "active",
+      "required": true
     }
   },
   "relations": {

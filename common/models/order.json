@@ -27,32 +27,33 @@
       "dataType": "decimal",
       "precision": 10,
       "scale": 2,
-      "required": false
+      "required": true
     },
     "marketplaceFee": {
       "type": "number",
       "dataType": "decimal",
       "precision": 10,
       "scale": 2,
-      "required": false
+      "required": true
     },
     "paymentFee": {
       "type": "number",
       "dataType": "decimal",
       "precision": 10,
       "scale": 2,
-      "required": false
+      "required": true
     },
     "storeRevenue": {
       "type": "number",
       "dataType": "decimal",
       "precision": 10,
       "scale": 2,
-      "required": false
+      "required": true
     },
     "status": {
       "type": "string",
-      "default": "active"
+      "default": "active",
+      "required": true
     }
   },
   "relations": {
