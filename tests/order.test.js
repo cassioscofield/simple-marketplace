@@ -151,7 +151,7 @@ describe('Order', function () {
                             });
                     });
             });
-            it('should not be able to order a product after deletion its deletion', function (done) {
+            it('should not be able to order a product after its deletion', function (done) {
                 chai.request(app).delete('/api/products/' + productId)
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
@@ -215,6 +215,42 @@ describe('Order', function () {
                         done(err);
                     });
             });
+        });
+    });
+
+    describe('POST /api/orders fail', function () {
+        let storeId, productId;
+        before(function (done) {
+            app.models.Store.create({
+                name: 'store-two'
+            }).then(store => {
+                storeId = store.storeId;
+                app.models.Product.create({
+                    storeId: storeId,
+                    name: 'product-two',
+                    price: 100
+                }).then(product => {
+                    productId = product.productId;
+                    app.models.Store.destroyById(storeId, function (err, data) {
+                        done(err);
+                    });
+                });
+            });
+        });
+        it('should not be able to order a product after deletion its store', function (done) {
+            chai.request(app).delete('/api/products/' + productId)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200);
+                    chai.request(app)
+                        .post('/api/orders')
+                        .send({
+                            'productId': productId
+                        })
+                        .end((err, res) => {
+                            expect(res.status).to.equal(400);
+                            done(err);
+                        });
+                });
         });
     });
 

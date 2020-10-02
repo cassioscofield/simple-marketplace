@@ -60,6 +60,9 @@ module.exports = function(Order) {
     }
     instance.amountPaid = product.price;
     instance.productName = product.name;
+    if (store.status !== 'active') {
+      throw new Error('cannot purchase an inactive store');
+    }
     instance.storeId = store.storeId;
   }
 
