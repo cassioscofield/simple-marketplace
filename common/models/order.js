@@ -39,7 +39,7 @@ module.exports = function(Order) {
     if (!ctx.args.filter) {
       ctx.args.filter = {
         where: {
-          status: { neq: 'active'}
+          status: { neq: 'cancelled'}
         }
       };
     }

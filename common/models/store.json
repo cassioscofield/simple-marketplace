@@ -8,7 +8,6 @@
   },
   "properties": {
     "storeId": {
-      "type": "string",
       "id": true,
       "index": true,
       "isArray": false,
@@ -22,14 +21,14 @@
       "type": "number",
       "dataType": "decimal",
       "precision": 10,
-      "scale": 2,
+      "scale": 4,
       "default": 0.09
     },
     "paymentFee": {
       "type": "number",
       "dataType": "decimal",
       "precision": 10,
-      "scale": 2,
+      "scale": 4,
       "default": 0.01
     },
     "status": {

@@ -195,15 +195,24 @@ describe('Order', function () {
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
                         expect(res.body.count).to.equal(1);
-                        done();
+                        count = 
+                        done(err);
                     });
             });
-            it('should find order with cancelled status after its deletion', function (done) {
+            it('should find order with cancelled status after its deletion with its id', function (done) {
                 chai.request(app).get('/api/orders/' + orderId)
                     .end((err, res) => {
                         expect(res.status).to.equal(200);
                         expect(res.body.status).to.equal('cancelled');
-                        done();
+                        done(err);
+                    });
+            });
+            it('should not be able to find cancelled order in the GET / endpoint', function (done) {
+                chai.request(app).get('/api/orders')
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        expect(res.body.length).to.equal(0);
+                        done(err);
                     });
             });
         });

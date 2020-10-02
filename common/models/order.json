@@ -8,7 +8,6 @@
   },
   "properties": {
     "orderId": {
-      "type": "string",
       "id": true,
       "index": true,
       "isArray": false,
