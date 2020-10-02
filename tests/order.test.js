@@ -151,6 +151,22 @@ describe('Order', function () {
                             });
                     });
             });
+            it('should not be able to order a product after deletion its deletion', function (done) {
+                chai.request(app).delete('/api/products/' + productId)
+                    .end((err, res) => {
+                        expect(res.status).to.equal(200);
+                        chai.request(app)
+                            .post('/api/orders')
+                            .send({
+                                'productId': productId
+                            })
+                            .end((err, res) => {
+                                expect(res.status).to.equal(400);
+                                expect(res.body.error.message).to.equal('cannot purchase an inactive product');
+                                done(err);
+                            });
+                    });
+            });
             it('should find order after deletion of the store of the product', function (done) {
                 chai.request(app).delete('/api/stores/' + storeId)
                     .end((err, res) => {

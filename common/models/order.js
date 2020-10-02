@@ -53,6 +53,9 @@ module.exports = function(Order) {
   }
 
   function addProductInformationToOrder(instance, product, store) {
+    if (product.status !== 'active') {
+      throw new Error('cannot purchase an inactive product');
+    }
     instance.amountPaid = product.price;
     instance.productName = product.name;
     instance.storeId = store.storeId;
@@ -69,10 +72,15 @@ module.exports = function(Order) {
     }
     let store = await app.models.Store.findById(product.storeId);
 
-    addProductInformationToOrder(ctx.instance, product, store);
-    calculateFeesAndRevenue(ctx.instance, product, store);
+    try {
+      addProductInformationToOrder(ctx.instance, product, store);
+      calculateFeesAndRevenue(ctx.instance, product, store);
+      next();
+    } catch (error) {
+      error.status = 400;
+      next(error);
+    }
 
-    next();
     
   }
 
