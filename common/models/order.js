@@ -20,6 +20,10 @@ module.exports = function(Order) {
 
   // Model validations
   Order.validatesPresenceOf('productId');
+  Order.validatesInclusionOf('status', {
+    in: ['active', 'cancelled'],
+    message: 'is not allowed'
+  });
 
   // Implementing soft-delete
   Order.on('attached', function () {
@@ -42,7 +46,19 @@ module.exports = function(Order) {
     next();
   });
 
-  async function calculateFeesAndRevenue(ctx, next) {
+  function calculateFeesAndRevenue (instance, product, store) {
+    instance.paymentFee = (store.paymentFee * product.price).toFixed(2);
+    instance.marketplaceFee = (store.marketplaceFee * product.price).toFixed(2);
+    instance.storeRevenue = (product.price - instance.paymentFee - instance.marketplaceFee).toFixed(2);
+  }
+
+  function addProductInformationToOrder(instance, product, store) {
+    instance.amountPaid = product.price;
+    instance.productName = product.name;
+    instance.storeId = store.storeId;
+  }
+
+  async function addProductStoreAndFeeInformationToOrder(ctx, next) {
 
     let product = await app.models.Product.findById(ctx.instance.productId);
     if (!product) {
@@ -53,11 +69,8 @@ module.exports = function(Order) {
     }
     let store = await app.models.Store.findById(product.storeId);
 
-    ctx.instance.amountPaid = product.price;
-    ctx.instance.paymentFee = (store.paymentFee * product.price).toFixed(2);
-    ctx.instance.marketplaceFee = (store.marketplaceFee * product.price).toFixed(2);
-    ctx.instance.storeRevenue = (product.price - ctx.instance.paymentFee - ctx.instance.marketplaceFee).toFixed(2);
-    ctx.instance.storeId = store.storeId;
+    addProductInformationToOrder(ctx.instance, product, store);
+    calculateFeesAndRevenue(ctx.instance, product, store);
 
     next();
     
@@ -79,7 +92,7 @@ module.exports = function(Order) {
       return;
     }
     try {
-      calculateFeesAndRevenue(ctx, next);
+      addProductStoreAndFeeInformationToOrder(ctx, next);
     } catch (e) {
       next(e);
     }

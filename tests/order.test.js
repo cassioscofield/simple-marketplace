@@ -83,6 +83,7 @@ describe('Order', function () {
                     expect(res.body.productId).to.equal(productId);
                     expect(res.body.storeId).to.equal(storeId);
                     expect(res.body.amountPaid).to.equal(50);
+                    expect(res.body.productName).to.equal('product-one');
                     expect(res.body.marketplaceFee).to.equal(4.5);
                     expect(res.body.paymentFee).to.equal(0.5);
                     expect(res.body).to.contain.key('orderId');
@@ -104,6 +105,7 @@ describe('Order', function () {
                         expect(res.body[0].storeId).to.equal(storeId);
                         expect(res.body[0].productId).to.equal(productId);
                         expect(res.body[0].amountPaid).to.equal(50);
+                        expect(res.body[0].productName).to.equal('product-one');
                         expect(res.body[0].orderDate).to.equal(orderDate);
                         expect(res.body[0].marketplaceFee).to.equal(4.5);
                         expect(res.body[0].paymentFee).to.equal(0.5);
@@ -119,6 +121,7 @@ describe('Order', function () {
                         expect(res.body.productId).to.equal(productId);
                         expect(res.body.storeId).to.equal(storeId);
                         expect(res.body.amountPaid).to.equal(50);
+                        expect(res.body.productName).to.equal('product-one');
                         expect(res.body.marketplaceFee).to.equal(4.5);
                         expect(res.body.paymentFee).to.equal(0.5);
                         expect(res.body).to.contain.key('orderId');
@@ -138,6 +141,7 @@ describe('Order', function () {
                                 expect(res.body.productId).to.equal(productId);
                                 expect(res.body.storeId).to.equal(storeId);
                                 expect(res.body.amountPaid).to.equal(50);
+                                expect(res.body.productName).to.equal('product-one');
                                 expect(res.body.marketplaceFee).to.equal(4.5);
                                 expect(res.body.paymentFee).to.equal(0.5);
                                 expect(res.body).to.contain.key('orderId');
@@ -160,6 +164,7 @@ describe('Order', function () {
                                 expect(res.body.storeId).to.equal(storeId);
                                 expect(res.body.orderDate).to.equal(orderDate);
                                 expect(res.body.amountPaid).to.equal(50);
+                                expect(res.body.productName).to.equal('product-one');
                                 expect(res.body.marketplaceFee).to.equal(4.5);
                                 expect(res.body.paymentFee).to.equal(0.5);
                                 expect(res.body.storeRevenue).to.equal(45);

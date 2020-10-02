@@ -14,6 +14,10 @@
       "isArray": false,
       "generated": true
     },
+    "productName": {
+      "type": "string",
+      "required": true
+    },
     "orderDate": {
       "type": "date",
       "default": "$now"
